@@ -1,3 +1,6 @@
+//Dialogue
+ReplaceAsset($2208458C, "fs/union/07_EVENT.uni", 10321920)
+
 //Character names
 Text($000DF5AC, " Ryuto  ") //F
 Text($000DF5B8, " Neige  ") //F
@@ -66,5 +69,3 @@ Text($001D8BCC, "Janitor")
 //Text($001D8BFC, "Student D")
 
 //Text($001D9040, "Myu   ")
-
-//Dialogue (stored in .uni files)
