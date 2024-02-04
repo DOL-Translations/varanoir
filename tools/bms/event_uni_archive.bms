@@ -1,0 +1,54 @@
+# Varanoir (JPN) (##.UNI Archive)
+# Discord niveus.lee
+# script for QuickBMS http://quickbms.aluigi.org
+
+endian little
+for i = 0
+	get C_FILE short
+	get C_SIZE short
+	math C_SIZE * 0x800
+	savepos C_POS
+	//1st
+	if C_SIZE != 0 && C_FILE == 0x1
+		math T_POS = 0xA000
+		goto T_POS
+		get DUMMY0 long
+		get DUMMY1 long
+		get DUMMY2 long
+		get L_OFFSET long
+		get F_SIZE long
+		math N_POS = T_POS
+		math N_POS + L_OFFSET
+		goto N_POS
+			getdstring C_EXT 0x5
+			string C_NAME = "0"
+			string C_NAME + i
+			string C_NAME + .
+			string C_NAME + C_EXT
+			log C_NAME N_POS F_SIZE
+		math T_POS + C_SIZE
+	//the rest
+	elif C_SIZE != 0 && C_FILE > 0x1
+		goto T_POS
+		savepos T_POS
+		get DUMMY0 long
+		get DUMMY1 long
+		get DUMMY2 long
+		get L_OFFSET long
+		get F_SIZE long
+		math N_POS = T_POS
+		math N_POS + L_OFFSET
+		goto N_POS
+			getdstring C_EXT 0x5
+			string C_NAME = "0"
+			string C_NAME + i
+			string C_NAME + .
+			string C_NAME + C_EXT
+			log C_NAME N_POS F_SIZE
+		math T_POS + C_SIZE
+	else
+		print "Chunk total: %i%"
+		cleanexit
+	endif
+	goto C_POS
+next i
