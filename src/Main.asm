@@ -9,12 +9,55 @@ origin $000000; insert "../input/Gakuen Toshi Vara Noir Roses [J].iso" // Includ
 macro Text(OFFSET, TEXT) {
   map 0, 0, 256 // Map Default ASCII Chars
   map '|', 0x00 // End of string
+  map '\n', 0x0A // New line
   map '=', 0xCD // End of string
 
   origin {OFFSET}
+  variable availableLength = 0;
+  while (read(origin() + availableLength) != 0x00) {
+    ds 1
+  }
+
+  if (read(origin()) == 0x00) {
+    fill 1
+  }
+  if (read(origin()) == 0x00) {
+    fill 1
+  }
+  if (read(origin()) == 0x00) {
+    fill 1
+  }
+  if (read(origin()) == 0x00) {
+    fill 1
+  }
+
+  availableLength = origin() - {OFFSET} - 1
   
+  origin {OFFSET}
   db {TEXT} // ASCII Text To Print
-  //fill 1
+
+  variable newLength = origin() - {OFFSET}
+  if (newLength > availableLength) {
+    print {TEXT}
+    print " is too big by "
+    print (newLength - availableLength)
+  }
+
+  while (read(origin()) != 0x00) {
+    fill 1
+  } 
+}
+
+// Warning: use address first!!
+macro Text(TEXT) {
+  variable i = 40;
+  while (i > 0 && read(origin()) < 0x01) {
+    ds 1
+    i = i - 1;
+  }
+  
+  variable ori = origin()
+  Text(ori, {TEXT})
 }
 
 macro TextShiftJIS(OFFSET, TEXT) {
@@ -43,6 +86,25 @@ macro Assert(MESSAGE) {
   "{MESSAGE}\n"
 }
 
+//Takes in a txt with strings and inserts them into the game
+//No more annoying addresses!
+macro ReplaceStringSet(ORIGIN, TEXT, AMNT) {
+  origin {ORIGIN}
+  
+  //for (int i = 0; i < AMNT; ++i) {
+  
+    //read in string from file
+    //TEXT = FILE
+    variable SIZE = 0
+
+    while ((read(origin()) != $00 && read(origin() + 1) != $00) || (read(origin() + 2) == $00 && read(origin() + 3) == $00)) {
+      SIZE = SIZE + 2
+      ds $02
+    }
+    Assert("Length {SIZE}")
+}
+
+
 macro ReplaceAsset(ORIGIN, FILE, SIZE) {
   if !file.exists({FILE}) {
     print "{FILE} doesn't exist!"
@@ -57,7 +119,9 @@ macro ReplaceAsset(ORIGIN, FILE, SIZE) {
   }
 }
 
-//Text($3, "E");
+//Region
+//Text($3, "E")
+//origin $45B; db $01
 
 include "Battle.asm"
 include "Dialogue.asm"

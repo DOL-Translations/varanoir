@@ -32,9 +32,9 @@ Text($000E6E45, "There is no Memory Card#nconnected in Slot A.#n#n")
 //Retry Continue without Saving
 Text($000E6EC1, "#nAn unexpected error has occurred.#n")
 //Quit
-Text($000E6EFD, "#nNo save data found for#nVALANOIR ACADEMY.#n                       ")
+Text($000E6EFD, "#nNo save data found for#nVARANOIR ACADEMY.#n                       ")
 //Quit
-Text($000E6F65, "#nThe save data for #nVALANOIR ACADEMY is corrupted.#n")
+Text($000E6F65, "#nThe save data for #nVARANOIR ACADEMY is corrupted.#n")
 //Quit
 Text($000E6FC1, "#nLoading failed because#nthe Memory Card was#nremoved during loading.#n")
 //Quit

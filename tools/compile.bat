@@ -23,12 +23,12 @@ if %ISOSize% neq %ISOTargetSize% (
     exit /b 0
 )
 
-setlocal enabledelayedexpansion
-for /L %%i in (0,1,1818) do (
-    set "entry=%%i"
-    "stcm2tools/stcm2insert.exe" "../src/fs/union/07_EVENT/text/0!entry!.text" "../src/fs/union/07_EVENT/bytecode/0!entry!.bytecode" "../src/fs/union/07_EVENT/stcm2/0!entry!.STCM2"
-)
-"bms/quickbms.exe" -w -r bms/event_uni_archive.bms ../src/fs/union/07_EVENT.uni ../src/fs/union/07_EVENT/stcm2/
+::setlocal enabledelayedexpansion
+::for /L %%i in (0,1,1818) do (
+::    set "entry=%%i"
+::    "stcm2tools/stcm2insert.exe" "../src/fs/union/07_EVENT/text/0!entry!.text" "../src/fs/union/07_EVENT/bytecode/0!entry!.bytecode" "../src/fs/union/07_EVENT/stcm2/0!entry!.STCM2"
+::)
+::"bms/quickbms.exe" -w -r bms/event_uni_archive.bms ../src/fs/union/07_EVENT.uni ../src/fs/union/07_EVENT/stcm2/
 
 echo [INFO] Compiling patches - Please wait..
 
